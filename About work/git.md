@@ -8,8 +8,8 @@
 
 若存在冲突，解决冲突后 `git add .` 再执行 `git rebase --continue`
 
-完成
+rebase 后切回 main 分支，执行 `git merge feature`
+
+合并完成
 
 对比 merge 合并分支代码，main 分支在合并后不会多出一个新的 commit 节点，整个分支树简洁直观
-
-End
