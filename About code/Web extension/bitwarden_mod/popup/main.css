@@ -78,8 +78,16 @@
   unicode-range: U+0-10FFFF;
 }
 
-@charset "UTF-8";
-* {
+/* @charset "UTF-8"; */
+:root {
+  --radius: 4px;
+}
+
+body,
+div,
+p,
+ul,
+li {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -94,8 +102,9 @@ body {
 }
 
 body {
-  width: 375px !important;
-  height: 600px !important;
+  width: 330px;
+  /* width: 375px; */
+  height: 440px;
   overflow: hidden;
   color: #000000;
   background-color: #f0f0f0;
@@ -239,8 +248,8 @@ main {
 }
 
 content::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 1px;
+  height: 4px;
 }
 
 content::-webkit-scrollbar-track {
@@ -248,7 +257,7 @@ content::-webkit-scrollbar-track {
 }
 
 content::-webkit-scrollbar-thumb {
-  border-radius: 10px;
+  /* border-radius: 10px; */
   margin-right: 1px;
 }
 html.theme_light content::-webkit-scrollbar-thumb {
@@ -469,15 +478,15 @@ header .search + .right {
 }
 
 .tabs {
-  width: 100%;
-  height: 55px;
-  border-top: 1px solid #000000;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
+  width: calc(100% - 20px);
+  margin: 0 10px;
+  height: 50px;
+  border-radius: var(--radius);
+  box-shadow: 0px 2px 10px 4px #0000000a;
+  position: fixed;
+  bottom: 10px;
 }
+
 html.theme_light .tabs {
   background-color: #ffffff;
   border-top-color: #ddd;
@@ -494,23 +503,16 @@ html.theme_nord .tabs {
   display: flex;
   width: 100%;
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 .tabs ul li {
   width: 25%;
-  /* float: left; */
-  display: inline-block;
-  padding: 0;
-  margin: 0;
 }
 .tabs ul li a {
+  line-height: 50px;
   text-align: center;
   display: block;
-  padding: 7px 0;
   text-decoration: none;
   font-size: 0px;
-  /* font-size: 12px; */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -537,10 +539,8 @@ html.theme_nord .tabs ul li a:focus {
   background-color: #434c5e;
 }
 .tabs ul li a i {
-  /*  edited */
-  font-size: 28px;
-  display: block;
-  margin-bottom: 2px;
+  vertical-align: middle;
+  font-size: 24px;
   text-align: center;
 }
 html.theme_light .tabs ul li.active a {
@@ -564,11 +564,9 @@ app-root {
 }
 
 content {
+  width: 100%;
   position: absolute;
   top: 44px;
-  bottom: 0;
-  left: 0;
-  right: 0;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -630,7 +628,7 @@ html.theme_nord .full-loading-spinner .fa {
   margin-top: 0;
 }
 .box .box-header {
-  margin: 0 10px 5px 10px;
+  margin: 18px 12px 6px;
   text-transform: uppercase;
   display: flex;
 }
@@ -644,20 +642,22 @@ html.theme_nord .box .box-header {
   color: #d8dee9;
 }
 .box .box-content {
-  border-top: 1px solid #000000;
-  border-bottom: 1px solid #000000;
+  margin: 0 10px;
+  border-radius: var(--radius);
+  box-shadow: 0px 2px 10px 4px #0000000a;
 }
+
 html.theme_light .box .box-content {
   background-color: white;
-  border-color: #ddd;
+  /* border-color: #ddd; */
 }
 html.theme_dark .box .box-content {
   background-color: #363636;
-  border-color: #111111;
+  /* border-color: #111111; */
 }
 html.theme_nord .box .box-content {
   background-color: #434c5e;
-  border-color: #2e3440;
+  /* border-color: #2e3440; */
 }
 .box .box-content.box-content-padded {
   padding: 10px 15px;
@@ -1662,7 +1662,14 @@ p.lead {
 }
 
 .flex-right {
-  margin-left: auto;
+  margin-left: 6px;
+}
+
+.flex-right:before {
+  content: "(";
+}
+.flex-right:after {
+  content: ")";
 }
 
 .flex-bottom {
@@ -1969,11 +1976,11 @@ input[type="password"]::-ms-reveal {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* makes the font 33% larger relative to the icon container */
 .fa-lg {
-  font-size: 1.33333em;
-  line-height: 0.75em;
-  vertical-align: -15%;
+  /* font-size: 1.33333em; */
+  font-size: 16px;
+  /* line-height: 0.75em; */
+  vertical-align: middle;
 }
 
 .fa-2x {
@@ -2487,7 +2494,7 @@ input[type="password"]::-ms-reveal {
 }
 
 .fa-chevron-right:before {
-  content: "\F054";
+  /* content: "\F054"; */
 }
 
 .fa-plus-circle:before {
