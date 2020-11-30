@@ -102,9 +102,10 @@ body {
 }
 
 body {
-  width: 330px;
+  width: 300px;
   /* width: 375px; */
-  height: 440px;
+  /* height: 495px; */
+  height: 600px;
   overflow: hidden;
   color: #000000;
   background-color: #f0f0f0;
@@ -183,6 +184,11 @@ img {
 a {
   text-decoration: none;
 }
+
+:focus {
+  outline: none;
+}
+
 html.theme_light a {
   color: #175ddc;
 }
@@ -331,6 +337,7 @@ header div > a {
   justify-content: center;
   align-items: center;
 }
+
 html.theme_light header app-pop-out > button,
 html.theme_light header div > button,
 html.theme_light header div > a {
@@ -376,11 +383,7 @@ html.theme_nord header div > a:focus {
   background-color: #434c5e;
   color: #e5e9f0;
 }
-header app-pop-out > button:focus,
-header div > button:focus,
-header div > a:focus {
-  text-decoration: underline;
-}
+
 header app-pop-out > button[disabled],
 header div > button[disabled],
 header div > a[disabled] {
@@ -540,7 +543,7 @@ html.theme_nord .tabs ul li a:focus {
 }
 .tabs ul li a i {
   vertical-align: middle;
-  font-size: 24px;
+  font-size: 22px;
   text-align: center;
 }
 html.theme_light .tabs ul li.active a {
@@ -567,6 +570,7 @@ content {
   width: 100%;
   position: absolute;
   top: 44px;
+  bottom: 0;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -1161,7 +1165,7 @@ html.theme_nord .box-content-row .row-sub-label + i.fa {
   color: #e5e9f0;
 }
 .box-content-row .row-sub-label {
-  margin: 0 15px;
+  /* margin: 0 15px; */
   white-space: nowrap;
 }
 html.theme_light .box-content-row .row-sub-label {
