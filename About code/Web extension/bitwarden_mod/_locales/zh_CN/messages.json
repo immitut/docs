@@ -3,11 +3,11 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - 免费密码管理器",
+    "message": "Bitwarden - 免费密码管理器 MOD",
     "description": "Extension name"
   },
   "extDesc": {
-    "message": "Bitwarden 是一个安全且免费的跨平台密码管理器。",
+    "message": "基于官方 Bitwarden 拓展修改，仅调整部分UI，整体界面更加现代。",
     "description": "Extension description"
   },
   "loginOrCreateNewAccount": {
