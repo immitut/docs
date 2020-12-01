@@ -703,10 +703,17 @@ html.theme_dark .box.list .box-content .box-content-row {
 html.theme_nord .box.list .box-content .box-content-row {
   color: #e5e9f0;
 }
+
 .box.list .box-content .box-content-row.padded {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+/* 调整 登录项目 文本样式 */
+.box.list .box-content .box-content-row.padded .text-center {
+  text-align: left;
+}
+
 html.theme_light .box.list .box-content .box-content-row:hover,
 html.theme_light .box.list .box-content .box-content-row:focus,
 html.theme_light .box.list .box-content .box-content-row.active {
@@ -1484,7 +1491,6 @@ html.theme_nord .swal2-popup .swal2-actions button:focus:not([disabled]),
 .btn.block,
 .swal2-popup .swal2-actions button.block {
   display: block;
-  width: 100%;
 }
 .btn.link,
 .swal2-popup .swal2-actions button.link {
@@ -6719,7 +6725,6 @@ html.theme_nord .swal2-popup .swal2-actions button:focus:not([disabled]),
 .btn.block,
 .swal2-popup .swal2-actions button.block {
   display: block;
-  width: 100%;
 }
 .btn.link,
 .swal2-popup .swal2-actions button.link {
@@ -7036,10 +7041,7 @@ app-home {
   height: 100%;
   width: 100%;
 }
-app-home .center-content {
-  margin-top: -50px;
-  height: calc(100% + 50px);
-}
+
 app-home img {
   width: 284px;
   margin: 0 auto;
