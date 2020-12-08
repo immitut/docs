@@ -37,14 +37,6 @@
 
 > 三个以上的 \* - \_ 都可
 
-<!-- ## 脚注
-
----
-
-正常文本 [^注明文本]
-
-[^注明文本]: abcd -->
-
 ---
 
 ## 列表
@@ -77,8 +69,52 @@
 
 ## 代码
 
-> `log()`函数
+> 内容中引用代码， 如像`func()`这样
 
+> 代码片段
+>
 > ```javascript
 > console.log("hellow, world.");
 > ```
+
+---
+
+## 链接
+
+> [链接名称](https://github.com/immitut/docs "git地址") 或 <https://github.com/immitut/docs>
+> 其中 `"git地址"` 为标题，可省略  
+> 也可以嵌套引用
+> [git][url], 其中 url 作为地址变量一般放在文档结尾处
+
+---
+
+## 图片
+
+> ![图片](./imgs/pic.jpg "code")
+
+> 同理也可嵌套引用  
+> ![图片][imgurl]
+
+> 利用`<img>`标签可以进一步控制宽高  
+> <img src='./imgs/pic.jpg' width='50%' title='code' alt='图片'>
+
+---
+
+## 表格
+
+> | 表头 1 左对齐 | 表头 2 居中 | 表头 3 右对齐 |
+> | ------------: | :---------: | :------------ |
+> |        内容 1 |   内容 2    | 内容 3        |
+
+---
+
+## 脚注（非标准）
+
+正常文本 [^注明文本]
+
+[^注明文本]: 解释说明文本
+
+---
+
+[url]: https://github.com/immitut/docs "git地址"
+[imgurl]: ./imgs/pic.jpg "code"
