@@ -116,5 +116,11 @@
 
 ---
 
+## 键盘文本
+
+使用 <kbd>Ctrl</kbd>+<kbd>F4</kbd> 刷新本页面
+
+---
+
 [url]: https://github.com/immitut/docs "git地址"
 [imgurl]: ./imgs/pic.jpg "code"

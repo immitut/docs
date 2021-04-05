@@ -9,7 +9,7 @@
    ```cmd
    cmd
 
-   adb reboot-bootloader
+   adb reboot bootloader
 
    fastboot flash boot magisk_patched.img
 
