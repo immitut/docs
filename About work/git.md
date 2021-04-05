@@ -8,6 +8,8 @@
 
 ### git checkout -b [branchName] 新建分支&切换到该分支
 
+### git checkout [branchName] 切换到该分支
+
 ### git checkout - 切换回上一分支
 
 ### git add [filePath/dir] 指定文件/目录到暂存区 git add . 即当前目录所有文件
