@@ -19,11 +19,16 @@ setState是异步操作，
 ### React Diff
 
 ### http 2.0
-
+	与前端相关：
+	多路复用：允许同时通过单一的http连接发起多重的请求
+	http头部压缩和缓存
 ### promise async/await
 
 ### bind apply call 
-
+	三者都是用来改变this指向的
+	bind 返回了一个新函数
+	call 除了第一个参数，其他正常依次传参
+	apply 只接受两个参数，第二个将参数作为数组传入即可
 ### dva 和 redux 的区别
 	
 
