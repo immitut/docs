@@ -5,10 +5,28 @@
 ### 技术沉淀？
 
 ### *** setState 原理
-setState是异步操作，
-队列机制
-### ** HOOKS
+从setState到state更新页面渲染整个过程是一个异步过程，
+<!-- react 会将多个setState合并成一个， -->
+<!-- 具体方式是通过一个队列来保存每次setState的数据，然后异步去清空这个队列，在清空的过程中执行合并和更新state，最后渲染组件。但是如果只是根据合并setState的队列去渲染的话，那么同一个组件可能会因为多次setState去渲染多次，所以又多了一个队列去保存每次更新state对应的组件，而且这个队列中同一组件只入队一次，之后在清空队列的操作中，遍历组件的队列去渲染每一个组件。
+至于异步，用的是Promise.resolve -->
 
+具体实现是通过2个队列分别去保存每次SetState的操作和对应的组件，但是后者对于同一组件只会入队一次，之后就是异步去清空这两个队列，在清空的过程中去执行合并更新State和渲染组件。
+队列机制 先进先出 push shift
+
+### ** HOOKS
+函数组件没有状态，
+hook让函数组件可以拥有状态，而且提供了类似didMount和didUpdate等生命周期方法
+丰富了函数组件的使用场景
+Class 类组件因为自己本身的状态存在太重了
+当然官方也说了HOOKS不会替代class
+
+useState 入参是state的初始值，返回了一个包含2个元素的数组，前者是当前state的key，后者是更新该state的函数
+而存放这些的hook数组是react调用函数组件的时候设置的，一开始它是空的，每调用一个hook，react都会向这个数组去添加一个hook
+
+useEffect 接受一个函数作为参数，同时这个函数能返回一个函数，这个返回的函数会在组件卸载时自动调用，
+
+
+### 渲染属性（Render Props) 和 高阶组件（High-Order Components）
 ### ** Fiber 解决了什么问题 引申 时间切片
 
 ### 算法 
@@ -23,12 +41,16 @@ setState是异步操作，
 	多路复用：允许同时通过单一的http连接发起多重的请求
 	http头部压缩和缓存
 ### promise async/await
+	Promise，相较于之前的回调函数，是一种更优雅合理的异步编程的解决方案。
+	作为对象，内部只有三种状态 pending fulfilled rejected,状态只会单向流转，也不能cancel
 
 ### bind apply call 
 	三者都是用来改变this指向的
-	bind 返回了一个新函数
-	call 除了第一个参数，其他正常依次传参
-	apply 只接受两个参数，第二个将参数作为数组传入即可
+	bind 返回了一个新函数 新函数的this指定为bind()的第一个参数，如果undefined或为null,就会指向当前执行作用域的this,
+
+	call 除了第一个参数，其他正常依次传参
+
+	apply 只接受两个参数，第二个将参数作为数组传入即可
 ### dva 和 redux 的区别
 	
 
