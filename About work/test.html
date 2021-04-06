@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  const PENDING = 'pending'
+  const FULFILLED = 'fulfilled'
+  const REJECTED = 'rejected'
+
+  class promise {
+    constructor(fn) {
+      this.state = PENDING;
+      this.res = undefined;
+      this.fulfilledCallbackList = [];
+      this.rejectedCallbackList = [];
+
+      try {
+        fn(this.resolve.bind(this),this.resolve.bind(this))
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    resolve(res) {
+      if (this.state === PENDING) {
+        this.state = FULFILLED
+        this.res = res
+        this.fulfilledCallbackList.forEach(fn => fn(res))
+      }
+    }
+
+    reject(res) {
+      if (this.state === PENDING) {
+        this.state = REJECTED
+        this.res = res
+        this.rejectedCallbackList.forEach(fn => fn(res))
+      }
+    }
+
+    then(fulfilledCallback,rejectedCallback) {
+      switch (this.state) {
+        case FULFILLED:
+          typeof fulfilledCallback === 'function' && fulfilledCallback(this.res)
+          break;
+        case REJECTED:
+          typeof rejectedCallback === 'function' && rejectedCallback(this.res)
+          break;
+        default: // pending
+          typeof fulfilledCallback === 'function' && this.fulfilledCallbackList.push(fulfilledCallback);
+          typeof rejectedCallback === 'function' && this.rejectedCallbackList.push(rejectedCallback)
+          break;
+      }
+    }
+
+    catch(e) {
+      //
+    }
+  }
+
+
+  const p = new promise((resolve,reject) => {
+    setTimeout(() => {
+      if (Math.random() > .5) {
+        resolve('ok')
+      } else {
+        reject('sorry')
+      }
+    },350)
+  })
+
+  p.then(res => {
+    console.log(res);
+  },err => {
+    console.log(err);
+  })
+
+</script>
+<script>
+  // deepClone
+  function deepClone(obj) {
+    if (typeof obj !== 'object') return obj;
+    if (obj instanceof Date) return new Date(obj);
+    if (obj instanceof RegExp) return new RegExp(obj)
+
+    const copy = new obj.constructor();
+
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        copy[key] = deepClone(obj[key])
+      }
+    }
+    return copy
+  }
+
+  const obj = {
+    a: [1,2,3],
+    s: 'string',
+    n: 9,
+    d: new Date(),
+    r: /[9]/,
+    children: {
+      name: 'a',
+      children: {
+        name: 'b',
+        children: {}
+      }
+    }
+  }
+
+  copy = deepClone(obj)
+  obj.a[0] = 123,
+    obj.children.name = 'c'
+  console.log(copy);
+</script>
+<script>
+  class Subject {
+    constructor() {
+      this.observerslist = []
+    }
+
+    add(ob) {
+      if (ob instanceof Observer) {
+        this.observerslist.push(ob)
+      } else {
+        // throw new TypeError('type error ')
+        console.error('type error ')
+      }
+    }
+
+    remove(ob) {
+      const index = this.observerslist.findIndex(i => i === ob);
+      index > -1 && this.observerslist.splice(index,1)
+    }
+
+    notify(action) {
+      this.observerslist.forEach(ob => {
+        ob.update(action)
+      })
+    }
+  }
+
+  class Observer {
+    constructor(name) {
+      this.name = name
+    }
+
+    update(ation) {
+      console.log(`${this.name} get an action: ${ation}`)
+    }
+  }
+
+  const sub = new Subject();
+  const tom = new Observer('Tom')
+  const jerry = new Observer('jerry')
+
+  sub.add(tom)
+  sub.add(jerry)
+  sub.add({})
+  sub.notify('open')
+
+  sub.remove(tom)
+  sub.notify('close')
+</script>
+<script>
+  class Node {
+    constructor(data) {
+      this.data = data;
+      this.next = null;
+      this.prev = null;
+    }
+  }
+
+  class linkList {
+    constructor() {
+      this.size = 0
+      this.head = new Node('HEAD');
+      this.currNode = null
+    }
+
+    // static currNode = ''
+
+    find(data) {
+      let currNode = this.head;
+      while (currNode && currNode.data !== data) {
+        currNode = currNode.next
+      }
+      return currNode
+    }
+
+    findLast() {
+      let currNode = this.head;
+      while (currNode && currNode.next) {
+        currNode = currNode.next;
+      }
+      return currNode
+    }
+
+    insert(data,newData) {
+      const currNode = this.find(data);
+      if (!currNode) {
+        return false
+      }
+      const newNode = new Node(newData);
+      newNode.next = currNode.next;
+      currNode.next = newNode;
+      this.size += 1
+    }
+
+    // ????
+    advance(n,currNode = this.head) {
+      this.currNode = currNode
+      while (n-- && this.currNode.next) {
+        this.currNode = this.currNode.next
+      }
+      // this.currNode = null;
+      return this.currNode
+    }
+
+    /**
+     * 1.删除head节点时，如果链表长度不为空，不做删除操作，如果长度为0，直接head.next置空，
+     * 2. 删除节点不存在，直接返回
+     * 
+    **/
+    remove(data) {
+      if (this.isEmpty() || data === 'HEAD') {
+        return;
+      }
+      this.currNode = this.find(data)
+      if (!this.currNode) {
+        return;
+      }
+      let currNode = this.head
+      while (currNode && currNode.next !== this.currNode) {
+        currNode = currNode.next
+      }
+      currNode.next = currNode.next.next;
+      this.size--
+    }
+
+    isEmpty() {
+      return !this.size
+    }
+
+    // 尾部新增
+    append(data) {
+      const newNode = new Node(data)
+      let lastNode = this.findLast();
+      lastNode.next = newNode;
+      this.size += 1
+    }
+
+    // 展示
+    display() {
+      let result = '';
+
+      let currNode = this.head;
+      while (currNode) {
+        result += currNode.data
+        currNode = currNode.next
+        if (currNode) {
+          result += ' ==> '
+        }
+      }
+      console.log(result);
+      return result;
+    }
+
+    // 显示当前节点
+    show() {
+      if (this.currNode && this.currNode.data) {
+        console.log(this.currNode.data);
+      }
+    }
+
+    isLoop() {
+      let x = this.head;
+      let y = this.head;
+
+      while (x) {
+        y = y.next;
+        if (y.next && x.next) {
+          x = x.next.next
+        } else {
+          x = null
+        }
+        if (x === y) {
+          console.log('loop');
+          return true
+        }
+      }
+      console.log('link');
+      return false
+    }
+  }
+
+  const list = new linkList();
+
+  const data = [1,2,3,4,'5demo','6666']
+
+  data.forEach(x => {
+    list.append(x)
+  })
+
+  // list.remove(4)
+  console.log(list.findLast());
+
+  list.insert(1,99)
+  console.log(list.advance(2));
+  list.display()
+  list.show()
+
+  console.log(list.isLoop());
+  const a = list.find(4);
+  const last = list.findLast();
+  last.next = a;
+  console.log(list.isLoop());
+
+// n = 10
+// while(n--) {
+//   console.log(n);
+//   if(n === 5) {
+//     return false;
+//   }
+// }
+
+</script>
+
+
+</html>

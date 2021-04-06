@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>观察者模式 & 订阅模式</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <button id="btnadd"></button>
+  <buttom id="btnDec"></buttom>
+</body>
+
+<script>
+  // 观察者模式
+  // 一对多的依赖关系，当目标对象Subject状态发生改变时，所有依赖它的对象Observer都会得到通知
+
+  // 目标者
+  class Subject {
+    constructor() {
+      this.observers = []
+    }
+
+    add(observer) {
+      this.observers.push(observer)
+    }
+
+    remove(observer) {
+      const index = this.observers.findIndex(item => item === observer);
+      if (index > -1) {
+        this.observers.splice(index,1)
+      }
+    }
+
+    // 通知
+    notify(content) {
+      for (const observer of this.observers) {
+        observer.action(content)
+      }
+    }
+  }
+
+  // 观察者
+  class Observer {
+    constructor(name) {
+      this.name = name
+    }
+
+    action(content) {
+      console.log(`${this.name} has been updated: ${content}`);
+    }
+  }
+
+  const subject = new Subject();
+
+  const tom = new Observer('tom');
+  const jerry = new Observer('jerry');
+
+  subject.add(tom);
+  subject.add(jerry);
+
+  subject.notify('Fin')
+
+
+
+
+</script>
+
+<script>
+  // 发布订阅模式
+  class PubSub {
+    constructor() {
+      this.list = {}
+    }
+
+    subscribe (key,fn) {
+      if (!this.list[key]) {
+        this.list[key] = [];
+      }
+      this.list[key].push(fn)
+    }
+    
+    publish (key,...args) {
+      for (const fn of this.list[key]) {
+        fn.call(this,...args)
+      }
+    }
+
+    unsubscribe (key,fn) {
+      let fnList = this.list[key];
+      if (!fnList) return false
+
+      if (!fn) {
+        fnList.length = 0
+        console.log(this.list);
+      } else {
+        console.log(fn);
+        const index = fnList.findIndex((subFn) => fn === subFn);
+        fnList.splice(index,1)
+      }
+
+    }
+  }
+
+  // 实际订阅
+  const pubSub = new PubSub()
+
+const on = name => {
+  console.log(`on: ${name}`);
+}
+
+const off = name =>{
+  console.log(`off: ${name}`);
+}
+
+const init = name => {
+  console.log(`init: ${name}`);
+}
+
+const init2 = name => {
+  console.log(`init2: ${name}`);
+}
+
+  pubSub.subscribe('on', on)
+  pubSub.subscribe('off', off)
+  pubSub.subscribe('init', init)
+  pubSub.subscribe('init', init2)
+
+  // pubSub.publish('on', 'tom')
+  // pubSub.publish('on', 'jerry')
+  // pubSub.publish('off', 'jerry')
+  // pubSub.publish('init', 'tom')
+
+  pubSub.unsubscribe('init',init)
+  pubSub.publish('init', 'jerry')
+
+</script>
+
+
+</html>
