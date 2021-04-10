@@ -3,7 +3,9 @@
 ## 押题类型
 
 ### 技术沉淀？
+!!!
 
+### 单元测试 & 功能测试
 ### *** setState 原理
 https://zhuanlan.zhihu.com/p/44537887
 从setState到state更新页面渲染整个过程是一个异步过程，
@@ -37,6 +39,8 @@ useEffect 接受一个函数作为参数，同时这个函数能返回一个函�
 
 ### React Diff
 
+### React Context
+
 ### http 2.0
 	与前端相关：
 	多路复用：允许同时通过单一的http连接发起多重的请求
@@ -52,6 +56,13 @@ useEffect 接受一个函数作为参数，同时这个函数能返回一个函�
 	call 除了第一个参数，其他正常依次传参
 
 	apply 只接受两个参数，第二个将参数作为数组传入即可
+
+	apply，call，bind三者的区别
+	三者都可以改变函数的this对象指向。
+<!-- 三者第一个参数都是this要指向的对象，如果如果没有这个参数或参数为undefined或null，则默认指向全局window。 -->
+	三者都可以传参，但是apply是数组，而call是参数列表，且apply和call是一次性传入参数，而bind可以分为多次传入。
+	bind 是返回绑定this之后的函数，便于稍后调用；apply 、call 则是立即执行 。
+
 ### dva 和 redux 的区别
 	
 
