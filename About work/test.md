@@ -76,7 +76,7 @@
 	3.组合继承
 
 	``` js
-		
+
 	```
 
 ### 技术沉淀？
@@ -129,7 +129,15 @@ useEffect 接受一个函数作为参数，同时这个函数能返回一个函�
 	call 除了第一个参数，其他正常依次传参
 
 	apply 只接受两个参数，第二个将参数作为数组传入即可
-### dva 和 redux 的区别
+### redux
+	#### 三大原则
+	1. 单一数据源
+		整个应用的 state 存储于 object tree 中， 且这个 object tree 只存在于唯一一个 store 中
+	2. state 只读
+		唯一改变 state 的方式就是触发 action，action 是一个用于描述已发生事件的普通对象
+	3. 使用纯函数执行修改
+		为了描述 action 如何改变 state tree, 你需要编写 reducers
+		
 	
 
 ### new 语法糖
