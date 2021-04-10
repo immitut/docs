@@ -2,6 +2,83 @@
 
 ## 押题类型
 
+### 原型链
+	每个且只有函数(匿名函数也是函数，但箭头函数没有)都有 prototype 属性
+	函数的 prototype 属性指向了一个对象，这个对象是调用该构造函数创造的实例的原型
+	原型则是每一个js对象（null?）在创建的时候所用到的模板，每一个js对象都会从原型那去继承属性
+
+	__proto__
+	这是每一个js对象(null ???)都具有的一个属性（？），这个属性会指向该对象的实例
+	绝大多数浏览器都支持这个非标准的方法去访问原型，但是它并不存在于Person.prototype中，而是Object.prototype中，
+	与其说它是一个属性，不如说是一个getter/setter, 当使用obj.__proto__,也就相当于返回了Object.getPrototypeOf(obj)
+
+	constructor
+	每个原型都有 constructor 属性指向关联的构造函数、
+
+	``` javascript
+	function Person() {
+	}
+
+	var kidd = new Person();
+
+	console.log(kidd.__proto__ === Person.prototype) // true
+	console.log(Person === Person.prototype.constructor) // true
+	console.log(Object.getPrototypeOf(kidd) === Person.prototype) // true
+	
+	// *实例本身是没有 constructor 的，但是会从原型上去取
+	console.log(kidd.constructor === Person.prototype.constructor) // true
+	```
+
+	原型链
+	`console.log(Object.proptotype.__proto__ === null) // true`
+	Object.prototype没有原型
+
+### 继承
+	1. 原型链继承
+
+	``` javascript
+		function Animal(type) {
+			this.type = type
+		}
+		Animal.prototype.getType = function() {
+			console.log(this.type)
+		}
+
+		function Human() {
+		}
+
+		Human.prototype = new Animal();
+		var hu = new Human();
+		hu.getType()
+	```
+	问题：
+	a. 引用类型的属性被所有实例共享 b. 创建Human实例时，无法向Animal传参
+
+	2.构造函数（经典继承）
+
+	``` js
+		function Animal(type) {
+			this.type = type;
+		}
+
+		function Human(type) {
+			Animal.call(this, type)
+		}
+
+		var hu = new Human('human');
+		var newH = new Human('newHuman');
+	```
+	优点：
+	a. 避免了引用类型的属性被所有实例共享 b. 可以在 Human 中向 Animal 传参
+	问题：
+	Animal方法都会在构造函数中定义，每次创建实例都会创建一遍方法
+
+	3.组合继承
+
+	``` js
+
+	```
+
 ### 技术沉淀？
 !!!
 
@@ -57,15 +134,19 @@ useEffect 接受一个函数作为参数，同时这个函数能返回一个函�
 
 	apply 只接受两个参数，第二个将参数作为数组传入即可
 
-	apply，call，bind三者的区别
-	三者都可以改变函数的this对象指向。
 <!-- 三者第一个参数都是this要指向的对象，如果如果没有这个参数或参数为undefined或null，则默认指向全局window。 -->
 	三者都可以传参，但是apply是数组，而call是参数列表，且apply和call是一次性传入参数，而bind可以分为多次传入。
 	bind 是返回绑定this之后的函数，便于稍后调用；apply 、call 则是立即执行 。
 
-### dva 和 redux 的区别
-	
-
+### redux
+	#### 三大原则
+	1. 单一数据源
+		整个应用的 state 存储于 object tree 中， 且这个 object tree 只存在于唯一一个 store 中
+	2. state 只读
+		唯一改变 state 的方式就是触发 action，action 是一个用于描述已发生事件的普通对象
+	3. 使用纯函数执行修改
+		为了描述 action 如何改变 state tree, 你需要编写 reducers
+		
 ### new 语法糖
 	函数调用前加上 new 就可以把任何函数当作一个类的构造函数去使用
 
