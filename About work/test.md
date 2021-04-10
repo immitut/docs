@@ -2,6 +2,83 @@
 
 ## 押题类型
 
+### 原型链
+	每个且只有函数(匿名函数也是函数，但箭头函数没有)都有 prototype 属性
+	函数的 prototype 属性指向了一个对象，这个对象是调用该构造函数创造的实例的原型
+	原型则是每一个js对象（null?）在创建的时候所用到的模板，每一个js对象都会从原型那去继承属性
+
+	__proto__
+	这是每一个js对象(null ???)都具有的一个属性（？），这个属性会指向该对象的实例
+	绝大多数浏览器都支持这个非标准的方法去访问原型，但是它并不存在于Person.prototype中，而是Object.prototype中，
+	与其说它是一个属性，不如说是一个getter/setter, 当使用obj.__proto__,也就相当于返回了Object.getPrototypeOf(obj)
+
+	constructor
+	每个原型都有 constructor 属性指向关联的构造函数、
+
+	``` javascript
+	function Person() {
+	}
+
+	var kidd = new Person();
+
+	console.log(kidd.__proto__ === Person.prototype) // true
+	console.log(Person === Person.prototype.constructor) // true
+	console.log(Object.getPrototypeOf(kidd) === Person.prototype) // true
+	
+	// *实例本身是没有 constructor 的，但是会从原型上去取
+	console.log(kidd.constructor === Person.prototype.constructor) // true
+	```
+
+	原型链
+	`console.log(Object.proptotype.__proto__ === null) // true`
+	Object.prototype没有原型
+
+### 继承
+	1. 原型链继承
+
+	``` javascript
+		function Animal(type) {
+			this.type = type
+		}
+		Animal.prototype.getType = function() {
+			console.log(this.type)
+		}
+
+		function Human() {
+		}
+
+		Human.prototype = new Animal();
+		var hu = new Human();
+		hu.getType()
+	```
+	问题：
+	a. 引用类型的属性被所有实例共享 b. 创建Human实例时，无法向Animal传参
+
+	2.构造函数（经典继承）
+
+	``` js
+		function Animal(type) {
+			this.type = type;
+		}
+
+		function Human(type) {
+			Animal.call(this, type)
+		}
+
+		var hu = new Human('human');
+		var newH = new Human('newHuman');
+	```
+	优点：
+	a. 避免了引用类型的属性被所有实例共享 b. 可以在 Human 中向 Animal 传参
+	问题：
+	Animal方法都会在构造函数中定义，每次创建实例都会创建一遍方法
+
+	3.组合继承
+
+	``` js
+		
+	```
+
 ### 技术沉淀？
 
 ### *** setState 原理
